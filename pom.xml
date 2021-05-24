@@ -43,21 +43,21 @@
                 </configuration>
             </plugin>
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-javadoc-plugin</artifactId>
-              <version>3.2.0</version>
-              <configuration>
-                <charset>UTF-8</charset>
-                <header>${project.build.finalName}</header>
-                <subpackages>de.rwthaachen.wzl.gt.nbm.nbhelp.api</subpackages>
-                <tags>
-                  <tag>
-                    <name>todo</name>
-                    <placement>a</placement>
-                    <head>To do:</head>
-                  </tag>                  
-                </tags>
-              </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <header>${project.build.finalName}</header>
+                    <subpackages>de.rwthaachen.wzl.gt.nbm.nbhelp.api</subpackages>
+                    <tags>
+                        <tag>
+                            <name>todo</name>
+                            <placement>a</placement>
+                            <head>To do:</head>
+                        </tag>                  
+                    </tags>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -109,6 +109,7 @@
         <netbeans.hint.license>apache20</netbeans.hint.license>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <nbplatform.version>RELEASE120</nbplatform.version>
+        
     </properties>
     <name>Simple NetBeans Help Displayer</name>
     <description>Module to display the context help pages in the users local default web browser.</description>

@@ -1,7 +1,7 @@
 /*
- * Copyright The string doesn't match the expected date/time/date-time format. The string to parse was: "26.04.2021.". The expected format was: "MMM d, y".
+ * Copyright The string doesn't match the expected date/time/date-time format. The string to parse was: "23.05.2021.". The expected format was: "MMM d, y".
 The nested reason given follows:
-Unparseable date: "26.04.2021."
+Unparseable date: "23.05.2021."
 
 ----
 FTL stack trace ("~" means nesting-related):
@@ -37,7 +37,7 @@ import org.openide.util.NbBundle.Messages;
 @ActionRegistration(
         displayName = "#CTL_HelpInBrowserAction"
 )
-@ActionReference(path = "Menu/Help", position = 3333)
+@ActionReference(path = "Menu/Help", position = 150)
 @Messages("CTL_HelpInBrowserAction=Help in Browser")
 public final class HelpInBrowserAction implements ActionListener {
 

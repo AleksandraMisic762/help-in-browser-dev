@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
 <filesystem>
+    <folder name="Actions">
+        <folder name="Tools">        
+            <file name="de-rwthaachen-wzl-gt-nbm-nbhelp-HelpInBrowserAction.instance"/>
+        </folder>
+    </folder>
     <folder name="Menu">
         <folder name="Help">
-            <file name="Help in Browser" url="shortcut.xml"></file>
+           <file name="de-rwthaachen-wzl-gt-nbm-nbhelp-HelpInBrowserAction.shadow">
+                <attr name="originalfile" stringvalue="Actions/Tools/de-rwthaachen-wzl-gt-nbm-nbhelp-HelpInBrowserAction.instance"/>
+                <attr name="position" intvalue="150"/>
+            </file>
         </folder>
-        
     </folder>
 </filesystem>
