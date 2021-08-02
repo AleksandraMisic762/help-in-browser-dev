@@ -24,107 +24,107 @@ import de.rwthaachen.wzl.gt.nbm.nbhelp.HelpProxy.ProxyServerProvider;
 @ServiceProvider(service = ProxyServerProvider.class)
 public class Java6Server implements ProxyServerProvider
 {
-  HttpServer server;
+    HttpServer server;
 
-  @Override
+    @Override
   public int createServer() throws IOException
   {
     try
     {
-      Class.forName("com.sun.net.httpserver.HttpServer");
-      return createRealServer();
+            Class.forName("com.sun.net.httpserver.HttpServer");
+            return createRealServer();
     }
     catch(ClassNotFoundException ex)
     {
-      Exceptions.printStackTrace(ex);
-    }
+            Exceptions.printStackTrace(ex);
+        }
 
-    return 0;
-  }
+        return 0;
+    }
 
   private int createRealServer() throws IOException
   {
-    Logger serverLogger = Logger.getLogger("com.sun.net.httpserver");
-    serverLogger.setUseParentHandlers(false);
-    serverLogger.setLevel(Level.ALL);
-    serverLogger.addHandler(new ServerLogs());
-    server = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
-    return server.getAddress().getPort();
-  }
+        Logger serverLogger = Logger.getLogger("com.sun.net.httpserver");
+        serverLogger.setUseParentHandlers(false);
+        serverLogger.setLevel(Level.ALL);
+        serverLogger.addHandler(new ServerLogs());
+        server = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
+        return server.getAddress().getPort();
+    }
 
-  @Override
+    @Override
   public void setHandler(HelpProxy.ProxyServerHandler requestHandler)
   {
     if(server == null)
     {
-      return;
-    }
+            return;
+        }
     server.createContext("/", request ->
     {
       requestHandler.handleRequest(new HelpProxy.ProxyServerRequest()
       {
-        @Override
+                @Override
         public URI getRequestURI()
         {
-          return request.getRequestURI();
-        }
+                    return request.getRequestURI();
+                }
 
-        @Override
+                @Override
         public void setResponseCode(int code, int length) throws IOException
         {
-          request.sendResponseHeaders(code, length);
-        }
+                    request.sendResponseHeaders(code, length);
+                }
 
-        @Override
+                @Override
         public void close()
         {
-          request.close();
-        }
+                    request.close();
+                }
 
-        @Override
+                @Override
         public OutputStream getResponseBody()
         {
-          return request.getResponseBody();
-        }
+                    return request.getResponseBody();
+                }
 
-      });
-    });
-  }
+            });
+        });
+    }
 
-  @Override
+    @Override
   public void startServer()
   {
     if(server != null)
     {
-      server.start();
+            server.start();
+        }
     }
-  }
 
   private static class ServerLogs extends Handler
   {
     public ServerLogs()
     {
-      super.setLevel(Level.ALL);
-    }
+            super.setLevel(Level.ALL);
+        }
 
-    @Override
+        @Override
     public void publish(LogRecord record)
     {
-      //Logs einfach klauen
-      record.setLoggerName(ServerLogs.class.getPackage().getName());
-      Logger.getLogger(ServerLogs.class.getPackage().getName()).log(record);
-    }
+            //Logs einfach klauen
+            record.setLoggerName(ServerLogs.class.getPackage().getName());
+            Logger.getLogger(ServerLogs.class.getPackage().getName()).log(record);
+        }
 
-    @Override
+        @Override
     public void flush()
     {
-    }
+        }
 
-    @Override
+        @Override
     public void close() throws SecurityException
     {
-    }
+        }
 
-  }
+    }
 
 }

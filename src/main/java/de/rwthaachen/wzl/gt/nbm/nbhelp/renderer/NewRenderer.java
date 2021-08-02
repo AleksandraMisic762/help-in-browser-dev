@@ -39,8 +39,19 @@ public class NewRenderer implements HelpTemplate {
 
     @Override
     public long renderHelpPage(HelpRenderContext context) throws IOException {
+        
+        
+        URL helpResource = context.getHelpResource();
+        try ( OutputStream out = context.getOuput();  
+                InputStream in = helpResource.openStream()) {
+            FileUtil.copy(in, out);
+            
+           
 
-        return System.currentTimeMillis();
+            return System.currentTimeMillis();
+        }
+        
+        
     }
 
 }

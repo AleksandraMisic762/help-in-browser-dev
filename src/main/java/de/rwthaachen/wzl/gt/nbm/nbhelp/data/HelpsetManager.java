@@ -114,6 +114,7 @@ public final class HelpsetManager
   {
     //RequestProcessor scanner = new RequestProcessor("helpscanner");
 
+      //
     FileObject serviceRoot = FileUtil.getConfigFile("Services/JavaHelp");
     if(serviceRoot != null)
     {
