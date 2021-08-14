@@ -27,39 +27,43 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.FSDirectory;
 
 import java.io.*;
+import javax.swing.JOptionPane;
+import org.apache.lucene.queryparser.classic.ParseException;
 
 public class HelpPageSearch {
+    private static final StandardAnalyzer analyzer = new StandardAnalyzer();
 
-    String indexLocation = "D:\\lucene-index-1";
-
-    private static StandardAnalyzer analyzer = new StandardAnalyzer();
-
-    private IndexReader reader;
-    private IndexSearcher searcher;
-    private TopScoreDocCollector collector;
+    private final IndexReader reader;
+    private final IndexSearcher searcher;
+    private final TopScoreDocCollector collector;
 
     public HelpPageSearch() throws IOException {
-        reader = DirectoryReader.open(FSDirectory.open(new File(indexLocation).toPath()));
+        if(HelpPageIndexer.getIndexLocation() == null){
+            JOptionPane.showMessageDialog(null, "No index available! Search is not possible");
+        }
+        reader = DirectoryReader.open(FSDirectory.open(new File(HelpPageIndexer.getIndexLocation()).toPath()));
         searcher = new IndexSearcher(reader);
         collector = TopScoreDocCollector.create(5, 30);
     }
 
-    public ScoreDoc[] search(String searchTerm) {
+    public Document[] search(String searchTerm) {
         try {
             Query q = new QueryParser("contents", analyzer).parse(searchTerm);
             searcher.search(q, collector);
             ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
             // 4. display results
-            System.out.println("Found " + hits.length + " hits.");
+//            System.out.println("Found " + hits.length + " hits.");
+            Document[] result = new Document[hits.length];
             for (int i = 0; i < hits.length; ++i) {
                 int docId = hits[i].doc;
                 Document d = searcher.doc(docId);
-                System.out.println((i + 1) + ". " + d.get("path") + " score=" + hits[i].score);
+                result[i] = d;
+//                System.out.println((i + 1) + ". " + d.get("path") + " score=" + hits[i].score);
             }
-            return hits;
-        } catch (Exception e) {
-            System.out.println("Error searching " + searchTerm + " : " + e.getMessage());
+            return result;
+        } catch (IOException | ParseException e) {
+            JOptionPane.showMessageDialog(null, "Error searching " + searchTerm + " : " + e.getMessage());
         }
         return null;
     }

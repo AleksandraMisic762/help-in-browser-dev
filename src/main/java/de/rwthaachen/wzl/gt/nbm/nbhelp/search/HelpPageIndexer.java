@@ -27,7 +27,6 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.*;
 import java.util.ArrayList;
 
-//@ServiceProvider
 public class HelpPageIndexer {
 
     private static StandardAnalyzer analyzer = new StandardAnalyzer();
@@ -35,28 +34,30 @@ public class HelpPageIndexer {
     private IndexWriter writer;
     private ArrayList<File> queue = new ArrayList<File>();
 
-    public static void createIndex() throws IOException {
+    private static String indexLocation = null;
+
+    public static void createIndex(String indexAddress) throws IOException {
         System.out.println("Enter the path where the index will be created: (e.g. /tmp/index or c:\\temp\\index)");
 
-        String indexLocation = null;
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(System.in));
+//        BufferedReader br = new BufferedReader(
+//                new InputStreamReader(System.in));
 
-        String s = "D:\\lucene-index-1";
+//        String s = "D:\\lucene-index-1";
+        indexLocation = indexAddress;
 
         HelpPageIndexer indexer = null;
         try {
-            indexLocation = s;
-            indexer = new HelpPageIndexer(s);
-        } catch (Exception ex) {
+//            indexLocation = s;
+            indexer = new HelpPageIndexer(indexLocation);
+        } catch (IOException ex) {
             System.out.println("Cannot create index..." + ex.getMessage());
             System.exit(-1);
         }
 
         try {
             indexer.indexFileOrDirectory("C:\\Users\\HP\\8. semestar\\SOK\\netbeans\\ide\\usersguide\\javahelp\\org\\netbeans\\modules\\usersguide");
-        } catch (Exception e) {
-            System.out.println("Error indexing " + s + " : " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error indexing " + indexLocation + " : " + e.getMessage());
         }
         indexer.closeIndex();
     }
@@ -85,7 +86,7 @@ public class HelpPageIndexer {
 
                 writer.addDocument(doc);
                 System.out.println("Added: " + f);
-            } catch (Exception e) {
+            } catch (IOException e) {
                 System.out.println("Could not add: " + f);
             } finally {
                 fr.close();
@@ -112,7 +113,7 @@ public class HelpPageIndexer {
             }
         } else {
             String filename = file.getName().toLowerCase();
-            
+
             if (filename.endsWith(".htm") || filename.endsWith(".html") || filename.endsWith(".txt")) {
                 queue.add(file);
             } else {
@@ -125,4 +126,7 @@ public class HelpPageIndexer {
         writer.close();
     }
 
+    public static String getIndexLocation() {
+        return indexLocation;
+    }
 }
