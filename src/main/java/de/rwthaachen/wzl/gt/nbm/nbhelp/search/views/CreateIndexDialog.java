@@ -45,7 +45,10 @@ public class CreateIndexDialog extends javax.swing.JDialog {
         txtIndexLocation = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
-        btnBrowse = new javax.swing.JButton();
+        btnIndexLocationBrowse = new javax.swing.JButton();
+        lblHelpPagesLocation1 = new javax.swing.JLabel();
+        txtHelpPagesLocation = new javax.swing.JTextField();
+        btnHelpPagesLocationBrowse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,7 +61,14 @@ public class CreateIndexDialog extends javax.swing.JDialog {
 
         org.openide.awt.Mnemonics.setLocalizedText(btnClose, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.btnClose.text")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(btnBrowse, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.btnBrowse.text")); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(btnIndexLocationBrowse, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.btnIndexLocationBrowse.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(lblHelpPagesLocation1, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.lblHelpPagesLocation1.text")); // NOI18N
+        lblHelpPagesLocation1.setToolTipText(org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.lblHelpPagesLocation1.toolTipText")); // NOI18N
+
+        txtHelpPagesLocation.setText(org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.txtHelpPagesLocation.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(btnHelpPagesLocationBrowse, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.btnHelpPagesLocationBrowse.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,9 +77,6 @@ public class CreateIndexDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblIndexLocation)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 182, Short.MAX_VALUE)
                         .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -78,19 +85,34 @@ public class CreateIndexDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtIndexLocation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBrowse)))
+                        .addComponent(btnIndexLocationBrowse))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtHelpPagesLocation)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnHelpPagesLocationBrowse))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIndexLocation)
+                            .addComponent(lblHelpPagesLocation1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblHelpPagesLocation1)
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHelpPagesLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHelpPagesLocationBrowse))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblIndexLocation)
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIndexLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBrowse))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                    .addComponent(btnIndexLocationBrowse))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnClose))
@@ -100,59 +122,17 @@ public class CreateIndexDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateIndexDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateIndexDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateIndexDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateIndexDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CreateIndexDialog dialog = new CreateIndexDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBrowse;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnHelpPagesLocationBrowse;
+    private javax.swing.JButton btnIndexLocationBrowse;
+    private javax.swing.JLabel lblHelpPagesLocation1;
     private javax.swing.JLabel lblIndexLocation;
+    private javax.swing.JTextField txtHelpPagesLocation;
     private javax.swing.JTextField txtIndexLocation;
     // End of variables declaration//GEN-END:variables
-
-    public JButton getBtnBrowse() {
-        return btnBrowse;
-    }
 
     public JButton getBtnClose() {
         return btnClose;
@@ -165,7 +145,17 @@ public class CreateIndexDialog extends javax.swing.JDialog {
     public JTextField getTxtIndexLocation() {
         return txtIndexLocation;
     }
-    
-    
 
+    public JButton getBtnIndexLocationBrowse() {
+        return btnIndexLocationBrowse;
+    }
+
+    public JTextField getTxtHelpPagesLocation() {
+        return txtHelpPagesLocation;
+    }
+
+    public JButton getBtnHelpPagesLocationBrowse() {
+        return btnHelpPagesLocationBrowse;
+    }
+    
 }

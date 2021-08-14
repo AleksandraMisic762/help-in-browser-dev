@@ -52,14 +52,11 @@ public class HelpPageSearch {
             searcher.search(q, collector);
             ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
-            // 4. display results
-//            System.out.println("Found " + hits.length + " hits.");
             Document[] result = new Document[hits.length];
             for (int i = 0; i < hits.length; ++i) {
                 int docId = hits[i].doc;
                 Document d = searcher.doc(docId);
                 result[i] = d;
-//                System.out.println((i + 1) + ". " + d.get("path") + " score=" + hits[i].score);
             }
             return result;
         } catch (IOException | ParseException e) {

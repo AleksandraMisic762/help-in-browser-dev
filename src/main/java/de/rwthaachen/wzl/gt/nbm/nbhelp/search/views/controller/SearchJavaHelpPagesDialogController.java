@@ -15,27 +15,18 @@
  */
 package de.rwthaachen.wzl.gt.nbm.nbhelp.search.views.controller;
 
-import com.sun.java.swing.action.ApplyAction;
 import de.rwthaachen.wzl.gt.nbm.nbhelp.HelpDisplayer;
 import de.rwthaachen.wzl.gt.nbm.nbhelp.search.HelpPageSearch;
 import de.rwthaachen.wzl.gt.nbm.nbhelp.search.views.SearchJavaHelpPagesDialog;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 import org.apache.lucene.document.Document;
 
-/**
- *
- * @author HP
- */
 public class SearchJavaHelpPagesDialogController {
 
     private final SearchJavaHelpPagesDialog dialog;
@@ -69,16 +60,16 @@ public class SearchJavaHelpPagesDialogController {
         dialog.setTitle("Search JavaHelp Pages");
 
         dialog.getTblResults().setModel(new ResultsTableModel(searchResults));
+        dialog.getTblResults().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         dialog.getTblResults().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (dialog.getTblResults().getSelectedRow() > -1) {
-                    JOptionPane.showMessageDialog(dialog, dialog.getTblResults().getSelectedRow());
                     String location = searchResults[dialog.getTblResults().getSelectedRow()].get("path");
                     location = location.substring(location.lastIndexOf("org"), location.length());
-                    JOptionPane.showMessageDialog(dialog, location);
                     HelpDisplayer.showPage(location);
+                    dialog.getTblResults().clearSelection();
                 }
             }
         });
@@ -89,7 +80,7 @@ public class SearchJavaHelpPagesDialogController {
 class ResultsTableModel extends AbstractTableModel {
 
     private Document[] tableDataResults;
-    private final String[] columnLabels = {"Result"};
+    private final String[] columnLabels = {"Search Results"};
 
     public ResultsTableModel(Document[] tableDataResults) {
         this.tableDataResults = tableDataResults;
@@ -120,15 +111,7 @@ class ResultsTableModel extends AbstractTableModel {
 
         switch (columnIndex) {
             case 0:
-                return value.get("filename").substring(0, value.get("filename").length() - 4);
-//            case 1:
-//                        final JButton btn = new JButton(new ApplyAction());
-//                        btn.addActionListener((ActionEvent e) -> {
-//                            String location = value.get("filename");
-//                            location = location.substring(location.lastIndexOf("org"), location.length());
-//                            HelpDisplayer.showPage(location);
-//                });
-//                        return btn;
+                return value.get("title");
             default:
                 return null;
         }
