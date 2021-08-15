@@ -34,12 +34,10 @@ public class HelpPageIndexer {
     private final IndexWriter writer;
     private final ArrayList<File> queue = new ArrayList<File>();
 
-    private static String indexLocation;
+    private static String indexLocation = System.getenv("APPDATA") + "\\NetBeans\\nb-help\\help-page-index";
 
-    public static void createIndex(String helpPagesAddress, String indexAddress) throws IOException {
-        indexLocation = indexAddress;
-
-        HelpPageIndexer indexer = new HelpPageIndexer(helpPagesAddress, indexAddress);
+    public static void createIndex(String helpPagesAddress) throws IOException {
+        HelpPageIndexer indexer = new HelpPageIndexer(helpPagesAddress, indexLocation);
         indexer.indexFileOrDirectory(helpPagesAddress);
         indexer.closeIndex();
 

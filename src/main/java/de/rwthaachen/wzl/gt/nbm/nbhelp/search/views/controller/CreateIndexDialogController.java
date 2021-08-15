@@ -27,11 +27,9 @@ public class CreateIndexDialogController {
 
     private final CreateIndexDialog dialog;
     private final JFileChooser fileChooser;
-    private String indexLocation = "";
     private String helpPageLocation = "";
 
     public CreateIndexDialogController() throws IOException {
-        
         dialog = new CreateIndexDialog(null, true);
         prepareView();
         addListeners();
@@ -53,27 +51,14 @@ public class CreateIndexDialogController {
             }
         });
 
-        dialog.getBtnIndexLocationBrowse().addActionListener((ActionEvent e) -> {
-            fileChooser.setCurrentDirectory(new File("C:\\Users\\HP"));
-
-            int returnVal = fileChooser.showOpenDialog(fileChooser);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
-                indexLocation = file.getAbsolutePath();
-                dialog.getTxtIndexLocation().setText(indexLocation);
-            }
-        });
-
         dialog.getBtnCreate().addActionListener((ActionEvent e) -> {
             try {
                 String helpPagesLocation = dialog.getTxtHelpPagesLocation().getText().trim();
-                String indexLocation1 = dialog.getTxtIndexLocation().getText().trim();
-                if (indexLocation1.equals("") || helpPagesLocation.equals("")) {
+                if (helpPagesLocation.equals("")) {
                     JOptionPane.showMessageDialog(dialog, "No index address provided");
                     return;
                 }
-                HelpPageIndexer.createIndex(helpPagesLocation, indexLocation1);
+                HelpPageIndexer.createIndex(helpPagesLocation);
                 JOptionPane.showMessageDialog(dialog, "Index successfully created");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(dialog, "Unable to create index at given address");

@@ -38,13 +38,13 @@ public class HelpPageSearch {
     private final IndexSearcher searcher;
     private TopScoreDocCollector collector;
 
-    private static String indexLocation;
+    private static String indexLocation = System.getenv("APPDATA") + "\\NetBeans\\nb-help\\help-page-index";
 
     public HelpPageSearch() throws IOException {
-        if (HelpPageIndexer.getIndexLocation() == null) {
-            JOptionPane.showMessageDialog(null, "No index available! Search is not possible");
+        File indexDir = new File(indexLocation);
+        if (!indexDir.exists() || indexDir.list().length == 0) {
+            JOptionPane.showMessageDialog(null, "No index available!");
         }
-        indexLocation = HelpPageIndexer.getIndexLocation();
         reader = DirectoryReader.open(FSDirectory.open(new File(indexLocation).toPath()));
         searcher = new IndexSearcher(reader);
     }

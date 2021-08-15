@@ -41,27 +41,17 @@ public class CreateIndexDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblIndexLocation = new javax.swing.JLabel();
-        txtIndexLocation = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
-        btnIndexLocationBrowse = new javax.swing.JButton();
         lblHelpPagesLocation1 = new javax.swing.JLabel();
         txtHelpPagesLocation = new javax.swing.JTextField();
         btnHelpPagesLocationBrowse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        org.openide.awt.Mnemonics.setLocalizedText(lblIndexLocation, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.lblIndexLocation.text")); // NOI18N
-        lblIndexLocation.setToolTipText(org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.lblIndexLocation.toolTipText")); // NOI18N
-
-        txtIndexLocation.setText(org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.txtIndexLocation.text")); // NOI18N
-
         org.openide.awt.Mnemonics.setLocalizedText(btnCreate, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.btnCreate.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(btnClose, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.btnClose.text")); // NOI18N
-
-        org.openide.awt.Mnemonics.setLocalizedText(btnIndexLocationBrowse, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.btnIndexLocationBrowse.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(lblHelpPagesLocation1, org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.lblHelpPagesLocation1.text")); // NOI18N
         lblHelpPagesLocation1.setToolTipText(org.openide.util.NbBundle.getMessage(CreateIndexDialog.class, "CreateIndexDialog.lblHelpPagesLocation1.toolTipText")); // NOI18N
@@ -83,17 +73,11 @@ public class CreateIndexDialog extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtIndexLocation)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnIndexLocationBrowse))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtHelpPagesLocation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnHelpPagesLocationBrowse))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblIndexLocation)
-                            .addComponent(lblHelpPagesLocation1))
+                        .addComponent(lblHelpPagesLocation1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -106,13 +90,7 @@ public class CreateIndexDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHelpPagesLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHelpPagesLocationBrowse))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblIndexLocation)
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIndexLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnIndexLocationBrowse))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
                     .addComponent(btnClose))
@@ -127,11 +105,8 @@ public class CreateIndexDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnHelpPagesLocationBrowse;
-    private javax.swing.JButton btnIndexLocationBrowse;
     private javax.swing.JLabel lblHelpPagesLocation1;
-    private javax.swing.JLabel lblIndexLocation;
     private javax.swing.JTextField txtHelpPagesLocation;
-    private javax.swing.JTextField txtIndexLocation;
     // End of variables declaration//GEN-END:variables
 
     public JButton getBtnClose() {
@@ -140,14 +115,6 @@ public class CreateIndexDialog extends javax.swing.JDialog {
 
     public JButton getBtnCreate() {
         return btnCreate;
-    }
-
-    public JTextField getTxtIndexLocation() {
-        return txtIndexLocation;
-    }
-
-    public JButton getBtnIndexLocationBrowse() {
-        return btnIndexLocationBrowse;
     }
 
     public JTextField getTxtHelpPagesLocation() {
