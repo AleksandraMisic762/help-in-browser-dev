@@ -26,11 +26,9 @@ package de.rwthaachen.wzl.gt.nbm.nbhelp.search;
 import de.rwthaachen.wzl.gt.nbm.nbhelp.search.views.controller.SearchJavaHelpPagesDialogController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
-import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 
 @ActionID(
@@ -40,16 +38,12 @@ import org.openide.util.NbBundle.Messages;
 @ActionRegistration(
         displayName = "#CTL_SearchJavaHelpPagesAction"
 )
-@ActionReference(path = "Menu/Help", position = -50, separatorBefore = -100, separatorAfter = 0)
-@Messages("CTL_SearchJavaHelpPagesAction=Search JavaHelp pages...")
+@ActionReference(path = "Menu/Help", position = 100, separatorAfter = 150)
+@Messages("CTL_SearchJavaHelpPagesAction=Search JavaHelp Pages...")
 public final class SearchJavaHelpPagesAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try {
-            new SearchJavaHelpPagesDialogController();
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        }
+        new SearchJavaHelpPagesDialogController();
     }
 }

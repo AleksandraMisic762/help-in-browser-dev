@@ -23,7 +23,6 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import org.apache.lucene.document.Document;
 
@@ -31,11 +30,10 @@ public class SearchJavaHelpPagesDialogController {
 
     private final SearchJavaHelpPagesDialog dialog;
 
-    private final HelpPageSearch indexSearch;
+    private HelpPageSearch indexSearch;
     private Document[] searchResults = null;
 
-    public SearchJavaHelpPagesDialogController() throws IOException {
-        indexSearch = new HelpPageSearch();
+    public SearchJavaHelpPagesDialogController(){
         dialog = new SearchJavaHelpPagesDialog(null, true);
         prepareView();
         addListeners();
@@ -45,6 +43,11 @@ public class SearchJavaHelpPagesDialogController {
 
     private void addListeners() {
         dialog.getBtnSearch().addActionListener((ActionEvent e) -> {
+            try {
+                indexSearch = new HelpPageSearch();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(dialog, "Error: " + ex);
+            }
             String searchTerm = dialog.getTxtSearchTerm().getText().trim();
             if (searchTerm.equals("")) {
                 JOptionPane.showMessageDialog(dialog, "Search term input required");
@@ -62,15 +65,12 @@ public class SearchJavaHelpPagesDialogController {
         dialog.getTblResults().setModel(new ResultsTableModel(searchResults));
         dialog.getTblResults().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        dialog.getTblResults().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (dialog.getTblResults().getSelectedRow() > -1) {
-                    String location = searchResults[dialog.getTblResults().getSelectedRow()].get("path");
-                    location = location.substring(location.lastIndexOf("org"), location.length());
-                    HelpDisplayer.showPage(location);
-                    dialog.getTblResults().clearSelection();
-                }
+        dialog.getTblResults().getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (dialog.getTblResults().getSelectedRow() > -1) {
+                String location = searchResults[dialog.getTblResults().getSelectedRow()].get("path");
+                location = location.substring(location.lastIndexOf("org"), location.length());
+                HelpDisplayer.showPage(location);
+                dialog.getTblResults().clearSelection();
             }
         });
     }

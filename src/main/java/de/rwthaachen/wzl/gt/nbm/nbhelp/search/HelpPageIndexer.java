@@ -34,33 +34,25 @@ public class HelpPageIndexer {
     private final IndexWriter writer;
     private final ArrayList<File> queue = new ArrayList<File>();
 
-    private static String indexLocation = null;
+    private static String indexLocation;
 
     public static void createIndex(String helpPagesAddress, String indexAddress) throws IOException {
         indexLocation = indexAddress;
 
-        HelpPageIndexer indexer = null;
-        try {
-            indexer = new HelpPageIndexer(indexLocation);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(-1);
-        }
-
-        try {
-            indexer.indexFileOrDirectory(helpPagesAddress);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HelpPageIndexer indexer = new HelpPageIndexer(helpPagesAddress, indexAddress);
+        indexer.indexFileOrDirectory(helpPagesAddress);
         indexer.closeIndex();
+
     }
 
-    HelpPageIndexer(String indexDir) throws IOException {
+    HelpPageIndexer(String pagesDir, String indexDir) throws IOException {
         FSDirectory dir = FSDirectory.open(new File(indexDir).toPath());
 
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
 
         writer = new IndexWriter(dir, config);
+        HelpPageSearch.setIndexLocation(indexLocation);
+        
     }
 
     private void indexFileOrDirectory(String fileName) throws IOException {
@@ -72,18 +64,22 @@ public class HelpPageIndexer {
                 Document doc = new Document();
 
                 fr = new FileReader(f);
-                BufferedReader titleReader = new BufferedReader(new FileReader(f));
-                doc.add(new TextField("contents", fr));
-                
-                String title = titleReader.readLine();
-                while (!title.contains("<h1>")) {
+                String title;
+                try ( BufferedReader titleReader = new BufferedReader(new FileReader(f))) {
+                    doc.add(new TextField("contents", fr));
                     title = titleReader.readLine();
+                    while (title != null && !title.contains("<h1>")) {
+                        title = titleReader.readLine();
+                    }
                 }
-                title = title.trim();
-                title = title.replace("<h1>", "");
-                title = title.replace("</h1>", "");
-                
-                doc.add(new StringField("title", title, Field.Store.YES));
+                if (title != null) {
+                    title = title.trim();
+                    title = title.replace("<h1>", "");
+                    title = title.replace("</h1>", "");
+                    doc.add(new StringField("title", title, Field.Store.YES));
+                } else {
+                    doc.add(new StringField("title", f.getName(), Field.Store.YES));
+                }
                 doc.add(new StringField("path", f.getPath(), Field.Store.YES));
                 doc.add(new StringField("filename", f.getName(), Field.Store.YES));
 

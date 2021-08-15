@@ -27,6 +27,8 @@ package de.rwthaachen.wzl.gt.nbm.nbhelp.search;
 import de.rwthaachen.wzl.gt.nbm.nbhelp.search.views.controller.CreateIndexDialogController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
@@ -43,6 +45,10 @@ import org.openide.util.NbBundle.Messages;
 @Messages("CTL_CreateIndex=Create JavaHelp Index...")
 public final class CreateIndexAction implements ActionListener {
     @Override public void actionPerformed(ActionEvent e) {
-       new CreateIndexDialogController();
+        try {
+            new CreateIndexDialogController();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
 }

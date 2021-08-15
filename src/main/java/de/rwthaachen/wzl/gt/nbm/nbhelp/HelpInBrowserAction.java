@@ -37,7 +37,7 @@ import org.openide.util.NbBundle.Messages;
 @ActionRegistration(
         displayName = "#CTL_HelpInBrowserAction"
 )
-@ActionReference(path = "Menu/Help", position = 150)
+@ActionReference(path = "Menu/Help", position = 0)
 @Messages("CTL_HelpInBrowserAction=Help in Browser")
 public final class HelpInBrowserAction implements ActionListener {
 

@@ -31,24 +31,28 @@ import javax.swing.JOptionPane;
 import org.apache.lucene.queryparser.classic.ParseException;
 
 public class HelpPageSearch {
+
     private static final StandardAnalyzer analyzer = new StandardAnalyzer();
 
     private final IndexReader reader;
     private final IndexSearcher searcher;
-    private final TopScoreDocCollector collector;
+    private TopScoreDocCollector collector;
+
+    private static String indexLocation;
 
     public HelpPageSearch() throws IOException {
-        if(HelpPageIndexer.getIndexLocation() == null){
+        if (HelpPageIndexer.getIndexLocation() == null) {
             JOptionPane.showMessageDialog(null, "No index available! Search is not possible");
         }
-        reader = DirectoryReader.open(FSDirectory.open(new File(HelpPageIndexer.getIndexLocation()).toPath()));
+        indexLocation = HelpPageIndexer.getIndexLocation();
+        reader = DirectoryReader.open(FSDirectory.open(new File(indexLocation).toPath()));
         searcher = new IndexSearcher(reader);
-        collector = TopScoreDocCollector.create(5, 30);
     }
 
     public Document[] search(String searchTerm) {
         try {
             Query q = new QueryParser("contents", analyzer).parse(searchTerm);
+            collector = TopScoreDocCollector.create(30, 50);
             searcher.search(q, collector);
             ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
@@ -63,6 +67,14 @@ public class HelpPageSearch {
             JOptionPane.showMessageDialog(null, "Error searching " + searchTerm + " : " + e.getMessage());
         }
         return null;
+    }
+
+    public static String getIndexLocation() {
+        return indexLocation;
+    }
+
+    public static void setIndexLocation(String indexLocation) {
+        HelpPageSearch.indexLocation = indexLocation;
     }
 
 }
