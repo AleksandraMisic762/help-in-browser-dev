@@ -38,9 +38,10 @@ public class HelpPageSearch {
     private final IndexSearcher searcher;
     private TopScoreDocCollector collector;
 
-    private static String indexLocation = System.getenv("APPDATA") + "\\NetBeans\\nb-help\\help-page-index";
+    private static String indexLocation = null;
 
     public HelpPageSearch() throws IOException {
+        indexLocation = HelpPageIndexer.getIndexLocation();
         File indexDir = new File(indexLocation);
         if (!indexDir.exists() || indexDir.list().length == 0) {
             JOptionPane.showMessageDialog(null, "No index available!");
